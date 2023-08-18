@@ -5,8 +5,31 @@
 ## Managing Cloud Identity. Considerations include:
 
 ### Configuring Google Cloud Directory Sync and third-party connectors
+* synch Google with AD or LDAP
+* Configure rules for custom mapping
+* Uses rules and exclusions so you can omit data from a sync
+* It uses OAuth for auth the APIs and SMTP for synch reports. 
+    * Directory API — Manages Chrome devices, groups, group aliases, members, organizational units, users, and user aliases. 
+    * Domain Shared Contacts API — Creates, deletes, and updates shared contact information for external contacts.
+* it may take upto 8 days to synch as cache stays for 8 days
+* To manually clear cache
+    1. Run a sync from Configuration Manager and select to clear the cache when performing a sync.
+    2. Use the command line flag -f to force a flush of the cache.
+    3. Modify the XML config file to set the maxCacheLifetime value to 0.
+
+#### How GCDS works
+* You set up rules to specify how the system generates a list of your data.
+* During a sync, the list is exported from your LDAP server.
+* GCDS connects to your Google Account and generates a list of users, groups, and shared contacts that you specify.
+* GCDS compares these lists and updates your Google Account to match the data.
+* After the synchronization, you get an email report so that you can monitor the process.
 
 ### Managing a super administrator account
+
+https://cloud.google.com/resource-manager/docs/super-admin-best-practices
+
+
+
 
 ### Automating the user lifecycle management process
 

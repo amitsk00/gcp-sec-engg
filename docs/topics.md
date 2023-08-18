@@ -57,3 +57,14 @@ https://cloud.google.com/apigee/docs/api-platform/security/data-masking
 
 Signed Policy DOcument - allows update to bucket without IAM
 
+
+
+## date shifting
+
+
+## COnfidential VMs
+* AMD processor, to keep encryption in RAM
+
+## SHielded VMs
+
+
