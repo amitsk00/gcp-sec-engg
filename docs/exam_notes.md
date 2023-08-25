@@ -1,6 +1,14 @@
 # test exam wise
 
 
+## VM Security
+
+* Secure Boot is obtained with `UEFI`
+* Measured Boot is obtained with `vTPM` (Virtual Trusted Platform Module)
+* Confidential VM - the data on VM (in memory) is also protected/secure
+    * supported only on *AMD*
+
+
 ## IAM
 
 * Group create/edit permissions are managed by Workspace and not by IAM
@@ -48,6 +56,15 @@
 
 
 
+
+
+## From training
+
+* Cloud Security Scanner
+* Security Command Center
+* Cronicle
+* Cloud Armor
+* Cert Auth Service
 
 
 
