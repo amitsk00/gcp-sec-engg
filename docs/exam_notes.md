@@ -140,3 +140,8 @@ The security points are as follows:
 * BQ Authorized view and dataset
 * DLP
 * Security Command Center
+
+
+## Load Balancer
+
+* SYN flood attacks ??

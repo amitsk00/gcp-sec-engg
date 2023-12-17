@@ -1,4 +1,36 @@
 
+# IAM
+
+
+* SSO
+* IAM
+* Anti Malware
+* MDM MAM (Mobile Device/App Mngmt)
+* Gateways and CASB
+
+
+## Other aspects
+
+### Automating the user lifecycle management process
+
+### Administering user accounts and groups programmatically
+
+### Managing and creating short-lived credentials (SA)
+
+### Configuring workload identity federation
+
+## Managing authentication. Considerations include
+
+### Creating a password and session management policy for user accounts
+
+### Setting up Security Assertion Markup Language (SAML) and OAuth
+
+### Configuring and enforcing two-factor authentication
+
+### Applying Policy Intelligence for better permission management
+
+## Basic Concepts
+
 ### Workload Identity
 
 * Google Cloud provides service accounts to act as identities for workloads
@@ -113,3 +145,28 @@
   * LDAPS (LDAP + SSL) or Cloud VPN can be used to encrypt the data
   * There needs a user on GCP side, with super-admin privs
   
+### Configuring Google Cloud Directory Sync and third-party connectors
+
+* synch Google with AD or LDAP
+* Configure rules for custom mapping
+* Uses rules and exclusions so you can omit data from a sync
+* It uses OAuth for auth the APIs and SMTP for synch reports.
+  * Directory API — Manages Chrome devices, groups, group aliases, members, organizational units, users, and user aliases.
+  * Domain Shared Contacts API — Creates, deletes, and updates shared contact information for external contacts.
+* it may take upto 8 days to synch as cache stays for 8 days
+* To manually clear cache
+    1. Run a sync from Configuration Manager and select to clear the cache when performing a sync.
+    2. Use the command line flag -f to force a flush of the cache.
+    3. Modify the XML config file to set the maxCacheLifetime value to 0.
+
+### How GCDS works
+
+* You set up rules to specify how the system generates a list of your data.
+* During a sync, the list is exported from your LDAP server.
+* GCDS connects to your Google Account and generates a list of users, groups, and shared contacts that you specify.
+* GCDS compares these lists and updates your Google Account to match the data.
+* After the synchronization, you get an email report so that you can monitor the process.
+
+### Managing a super administrator account
+
+<https://cloud.google.com/resource-manager/docs/super-admin-best-practices>

@@ -1,4 +1,16 @@
 
+# Org
+
+## Defining resource hierarchy. Considerations include:
+
+### Creating and managing organizations
+
+### Managing organization policies for organization folders, projects, and resources
+
+### Using resource hierarchy for access control and permissions inheritance
+
+
+
 
 ## Imp notes
 

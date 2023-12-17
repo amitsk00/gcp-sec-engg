@@ -1,4 +1,5 @@
 
+# Best practises
 
 ## GFE
 
@@ -17,6 +18,9 @@
 ## Data protection
 
 ### Governance
+
+
+
 
 ### DLP
 
@@ -61,33 +65,62 @@
 * Hybrid methods - request starts as COntent method, but results are stored as Storage
 
 
+### Inspecting and redacting personally identifiable information (PII)
+
+### Configuring pseudonymization
+
+### Configuring format-preserving substitution
+
+### Restricting access to BigQuery, Cloud Storage, and Cloud SQL datastores
 
 
 
-### Encryption
+## Encryption
 
-### HSM
+## HSM
+
+
+
+## Data Masking
+
+https://cloud.google.com/apigee/docs/api-platform/security/data-masking
+
+
 
 
 ## Infra Security
 
-DDoS
-Firewalls
-IDS/IPS
-WAF
-Container Security
+* DDoS
+* Firewalls
+* IDS/IPS
+* WAF
+* Container Security
+
+
+### Automating virtual machine image creation, hardening, maintenance, and patch management
+
+### Automating container image creation, verification, hardening, maintenance, and patch management
+
+### Automating policy as code and drift detection
+
+
+
+
+
 
 ## Scanning, Logging and Monitoring
 
-Vuln Scanning
-SIEM
+* Vuln Scanning
+* SIEM
 
 
-## IAM
 
-SSO
-IAM
-Anti Malware
-MDM MAM (Mobile Device/App Mngmt)
-Gateways and CASB
+
+
+## OS Login
+
+* Manage SSH access to your instances using IAM
+* Maintains consistent Linux user identity across VM instances
+* Recommended way to manage many users across multiple instances or projects
+* Simpliﬁes SSH access management
 

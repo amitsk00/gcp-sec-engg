@@ -1,4 +1,5 @@
 
+# Compliance
 
 * Compliance Reports Manager shows all the reports
 
@@ -25,3 +26,16 @@
 
 
 ## ISO 27018
+
+
+## Chronicle GCP SIEM
+
+
+## Other aspects
+
+### Evaluating the security shared responsibility model (Access Transparency)
+
+
+### Determining the Google Cloud environment in scope for regulatory compliance
+
+

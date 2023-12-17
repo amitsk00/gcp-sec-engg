@@ -1,3 +1,5 @@
+# Networks  
+
 
 ### IPv6
 
@@ -68,3 +70,32 @@ endpoints using *.p.googleapis.com
 * Identifying differences between private versus public addressing
 * Configuring web application firewall (WAF) (Google Cloud Armor)
 * Configuring Cloud DNS
+
+
+
+
+## Designing perimeter security. Considerations include:
+
+### Configuring network perimeter controls (firewall rules, hierarchical firewalls, Identity-Aware Proxy [IAP], load balancers, and Certificate Authority Service)
+
+### Identifying differences between private and public addressing
+
+### Configuring web application firewall (Google Cloud Armor)
+
+### Configuring Cloud DNS security settings
+
+
+
+
+## Configuring boundary segmentation. Considerations include:
+
+### Configuring security properties of a VPC network, VPC peering, Shared VPC, and firewall rules
+
+### Configuring network isolation and data encapsulation for N-tier application design
+
+### Configuring VPC Service Controls
+
+### Designing and configuring private connectivity between data centers and VPC network (IPsec and Cloud Interconnect)
+
+### Using Cloud NAT to enable outbound traffic
+
