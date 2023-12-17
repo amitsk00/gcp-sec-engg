@@ -4,10 +4,28 @@
 
 ## VM Security
 
-* Secure Boot is obtained with `UEFI`
-* Measured Boot is obtained with `vTPM` (Virtual Trusted Platform Module)
 * Confidential VM - the data on VM (in memory) is also protected/secure
   * supported only on *AMD*
+  * They have below 2 :
+    * Secure Boot is obtained with `UEFI`
+      * by verifying the digital signature of all boot components and ending the boot process if signature verification fails
+    * Measured Boot is obtained with `vTPM` 
+      * helps guard against malicious modifications to the Confidential VM
+      * Measured Boot monitors the integrity of a Confidential VM instance's bootloader, kernel, and boot drivers.
+
+* Logging for
+  * integrityEvaluationPassed - 
+  * sevPolicy - 
+  * sevLaunchAttestationReportEvent - ??
+  * earlyBootReportEvent - ??
+
+
+## BQ Security
+
+* Authorized view
+  * main table and target view should be in same regional location (but can be in diff datasets)
+
+
 
 ## IAM
 
@@ -28,7 +46,8 @@
 * The process is the same for GMEK or CMEK
 * For CSEK (GCS and GCE Only) the primary difference is the KEK is always supplied directly by the customer. Specified in the boto config file
 
-* **--destroy-scheduled-duration**  - this flag can be set only while creating the key, and can't be changed later
+* `--destroy-scheduled-duration`  - this flag can be set only while creating the key, and can't be changed later
+* no auto rotation for Asymmetric keys
 
 ## VPC
 
@@ -92,4 +111,32 @@ The security points are as follows:
 * Cert Auth Service
 * Web Security Scanner
 
+## DNS
 
+* Can't setup DNS Forwarding to another VPC
+* OnPrem must be source or target 
+* Uses Google proxies 
+
+* DNS Peering
+  * This allows DNS queries to be sennt to another VPC
+  * Configure a Zone that is peered to another VPC
+  * Then use Pvt Zone, Forwarding Zone or ANS
+  * Most useful for SaaS applications
+
+* Mult VPC to OnPrem
+  * All but 1 VPC have Peering Zone, which connect to last VPC's Forwarding Zone
+  * This Forwarding Zone through InterConnect or VPN goes to OnPrem
+  
+
+## Secret Manager
+
+* To add time limit on secret
+  * either add expiration time and post that secret is deleted
+  * or add IAM with conditions so that access is revoked later
+
+
+## Check in Console
+
+* BQ Authorized view and dataset
+* DLP
+* Security Command Center
