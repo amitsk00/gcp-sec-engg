@@ -1,5 +1,6 @@
 # Networks  
 
+## Concepts
 
 ### IPv6
 
@@ -60,7 +61,7 @@ endpoints using *.p.googleapis.com
 * Configuring network perimeter controls
   * firewall rules
   * Identity-Aware Proxy (IAP)
-* Configuring load balancing 
+* Configuring load balancing
   * global
   * network
   * HTTP(S)
@@ -71,10 +72,7 @@ endpoints using *.p.googleapis.com
 * Configuring web application firewall (WAF) (Google Cloud Armor)
 * Configuring Cloud DNS
 
-
-
-
-## Designing perimeter security. Considerations include:
+## Designing perimeter security. Considerations include
 
 ### Configuring network perimeter controls (firewall rules, hierarchical firewalls, Identity-Aware Proxy [IAP], load balancers, and Certificate Authority Service)
 
@@ -84,10 +82,7 @@ endpoints using *.p.googleapis.com
 
 ### Configuring Cloud DNS security settings
 
-
-
-
-## Configuring boundary segmentation. Considerations include:
+## Configuring boundary segmentation. Considerations include
 
 ### Configuring security properties of a VPC network, VPC peering, Shared VPC, and firewall rules
 
@@ -98,4 +93,3 @@ endpoints using *.p.googleapis.com
 ### Designing and configuring private connectivity between data centers and VPC network (IPsec and Cloud Interconnect)
 
 ### Using Cloud NAT to enable outbound traffic
-

@@ -1,19 +1,27 @@
 
 # IAM
 
-
 * SSO
 * IAM
 * Anti Malware
 * MDM MAM (Mobile Device/App Mngmt)
 * Gateways and CASB
 
-
 ## Other aspects
 
 ### Automating the user lifecycle management process
 
+* SAML for Single Sign-On (SSO), for automated user provisioning
+* Set up SSO with Google as your Identity provider
+
 ### Administering user accounts and groups programmatically
+
+* new Cloud Identity Groups API
+* Using the new API you can:
+  * Create and delete groups
+  * See and update group metadata
+  * Add members to and remove members from a group
+  * Modify member roles within a group
 
 ### Managing and creating short-lived credentials (SA)
 
@@ -23,11 +31,56 @@
 
 ### Creating a password and session management policy for user accounts
 
+* Create hash for the password
+* Allow for third-party identity providers if possible
+* Separate the concept of user identity and user account
+* Allow multiple identities to link to a single user account
+* Don't block long or complex passwords
+* Validate the user's identity
+* Let your users delete their accounts
+* Use 2-Step Verification
+
+* Session Management
+  * Under Reauthentication policy, select Require reauthentication, and choose the Reauthentication frequency from the drop-down list.
+  * The minimum frequency allowed is 1 hour, and the maximum is 24 hours.
+  * The frequency doesn't include how long a user has been inactive in the session.
+  * If SAML based IdP is used, then auth refresh request will be sent to IdP and can be re-auth without entering creds if session is valid on IdP
+  * Use **Trusted List** as exception from this for special cases where auth isnt possible
+
 ### Setting up Security Assertion Markup Language (SAML) and OAuth
 
 ### Configuring and enforcing two-factor authentication
 
+* (physical) security keys are safest (used by putting them in USB and then creating keys by touching the key)
+* For Android phones, NFC or Bluetooth options can be used
+* Or, a Google Prompt on known device
+* Or, Google Authenticator app
+* Backup codes
+* SMS or phone call
+
 ### Applying Policy Intelligence for better permission management
+
+* Reduce risk with automated policy controls
+* Recommender: discover and remediate excessive permissions
+  * Roles needed:
+    * roles/recommender.iamViewer
+    * roles/resourcemanager.projectIamAdmin
+    * roles/iam.roleViewer
+* Policy Troubleshooter: quickly resolve access control issues
+  * users can visualize all the policies that grant or deny access to API calls
+  * see which specific policies blocked the call
+  * review an explanation of why the blocked call took place
+  * Roles needed are:
+    * roles/iam.securityReviewer
+    * roles/iam.denyReviewer
+    * roles/serviceusage.serviceUsageConsumer (to use CLI)
+
+* Policy Analyzer: understand who has access to resources
+  * Roles needed:
+    * roles/cloudasset.viewer
+    * roles/iam.roleViewer
+    * roles/serviceusage.serviceUsageConsumer (to use CLI)
+* Policy Simulator: Safely roll out policy changes
 
 ## Basic Concepts
 

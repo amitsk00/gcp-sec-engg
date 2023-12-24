@@ -9,23 +9,20 @@
   * They have below 2 :
     * Secure Boot is obtained with `UEFI`
       * by verifying the digital signature of all boot components and ending the boot process if signature verification fails
-    * Measured Boot is obtained with `vTPM` 
+    * Measured Boot is obtained with `vTPM`
       * helps guard against malicious modifications to the Confidential VM
       * Measured Boot monitors the integrity of a Confidential VM instance's bootloader, kernel, and boot drivers.
 
 * Logging for
-  * integrityEvaluationPassed - 
-  * sevPolicy - 
+  * integrityEvaluationPassed -
+  * sevPolicy -
   * sevLaunchAttestationReportEvent - ??
   * earlyBootReportEvent - ??
-
 
 ## BQ Security
 
 * Authorized view
   * main table and target view should be in same regional location (but can be in diff datasets)
-
-
 
 ## IAM
 
@@ -68,7 +65,6 @@
 * Each Allow policy can have 1500 principals - including duplicates
 * Each Allow policy can have 250 domains or Groups
 
-
 ## Special
 
 The security points are as follows:
@@ -101,12 +97,16 @@ The security points are as follows:
 
 * Use Google Cloud Armor as a WAF layer with Apigee
 
+## Security Command Center
+
+* Continuous exports findings work only for newly created findings.
+* Continuous exports to Pub/Sub are usually used for forwarding findings to external security management systems such as Splunk or QRadar.
+  * Pub/Sub can be created from Console
+  * BQ is created using `gcloud scc bqexports create`
 
 ## From training
 
 * Cloud Security Scanner
-* Security Command Center
-* Cronicle
 * Cloud Armor
 * Cert Auth Service
 * Web Security Scanner
@@ -114,8 +114,8 @@ The security points are as follows:
 ## DNS
 
 * Can't setup DNS Forwarding to another VPC
-* OnPrem must be source or target 
-* Uses Google proxies 
+* OnPrem must be source or target
+* Uses Google proxies
 
 * DNS Peering
   * This allows DNS queries to be sennt to another VPC
@@ -127,20 +127,17 @@ The security points are as follows:
   * All but 1 VPC have Peering Zone, which connect to last VPC's Forwarding Zone
   * This Forwarding Zone through InterConnect or VPN goes to OnPrem
   
-
 ## Secret Manager
 
 * To add time limit on secret
   * either add expiration time and post that secret is deleted
   * or add IAM with conditions so that access is revoked later
 
-
 ## Check in Console
 
 * BQ Authorized view and dataset
 * DLP
 * Security Command Center
-
 
 ## Load Balancer
 
