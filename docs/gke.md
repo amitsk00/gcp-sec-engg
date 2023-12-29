@@ -18,6 +18,16 @@
 * GKE Secrets
   * KMS to manage GKE KEK
 
+* Bin Authorization
+
+* Workload Identoty
+
+* GKE Sandbox
+
+* Tips
+  * Compute Default SA has editor role so better use custom SA for cluster
+
+
 ## RBAC
 
 * Secure your cluster by granting privileged operations (accessing secrets, for example) only to admin users.

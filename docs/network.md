@@ -72,6 +72,13 @@ endpoints using *.p.googleapis.com
 * Configuring web application firewall (WAF) (Google Cloud Armor)
 * Configuring Cloud DNS
 
+* Network Isolation
+  * diff VPC for each need
+  * one VPC for on-prem conn (VPN etc)
+  * one VPC that allows public internet access
+  * one VPC just within Google
+
+
 ## Designing perimeter security. Considerations include
 
 ### Configuring network perimeter controls (firewall rules, hierarchical firewalls, Identity-Aware Proxy [IAP], load balancers, and Certificate Authority Service)
@@ -93,3 +100,8 @@ endpoints using *.p.googleapis.com
 ### Designing and configuring private connectivity between data centers and VPC network (IPsec and Cloud Interconnect)
 
 ### Using Cloud NAT to enable outbound traffic
+
+
+### FIrewall Insights
+
+### Packet monitoring

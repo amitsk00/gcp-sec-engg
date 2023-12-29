@@ -24,6 +24,12 @@
 
 * User Identity -
 
+
+
+
+* Workload Identity = used when microservices deployed to your GKE cluster need to access other GCP resources / APIs.
+* Workload Identity Federation = when some services of yours deployed outside of GCP (in on-premises or other hyperscalers) need to access GCP resources / APIs.
+
 ## Apigee Security
 
 * Automated API Security with ML based abuse detection
@@ -75,4 +81,26 @@
 * Duet AI
 * SIEM and SOAR integrations
 
+* Continuous exports findings work only for newly created findings.
+* Continuous exports to Pub/Sub are usually used for forwarding findings to external security management systems such as Splunk or QRadar.
+  * Pub/Sub can be created from Console
+  * BQ is created using `gcloud scc bqexports create`
+
+* Made up of
+  * Container Threat Detection
+  * Event Threat Detection
+  * Rapid Vulnerability DetectionPreview
+  * Secured Landing Zone servicePreview
+  * Security Health Analytics
+  * Virtual Machine Threat Detection
+  * Web Security Scanner
+
 ### Configuring and monitoring Security Command Center (Security Health Analytics, Event Threat Detection, Container Threat Detection, Web Security Scanner)
+
+
+
+### Identity Aware Proxy IAP
+
+### Cloud Asset Inventory
+
+### Web Security Scanner

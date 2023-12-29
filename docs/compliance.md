@@ -2,9 +2,19 @@
 # Compliance
 
 * Compliance Reports Manager shows all the reports
+* Google Cloud meets many third-party and government compliance standards worldwide
+* Google Cloud has been certified as secure, but that does not mean that applications built on Google Cloud are automatically certified
+* Companies need to worry about only those services you build on
+top of Google Cloud
+
+
+
+
 
 ## GDPR
 
+* PII data protection in Europe (data stored in EU)
+* world-class levels of visibility and control over their data through our services
 * Regulates how businesses can collect, use, and store personal data
 * Builds upon current documentation and reporting requirements to increase accountability
 * Authorizes fines on businesses who fail to meet its requirements
@@ -14,13 +24,15 @@
 * cardholder data (CHD)
 * CDE:  cardholder data environment.
 * All systems that store, process, or transmit cardholder data (CHD) are in scope for your PCI DSS assessment.
-* to establish a “minimum security standard” to protect customers’ payment card information.
+* to establish a “minimum security standard” **to protect customers’ payment card information**.
 * The Attestation of Compliance provides formal assurance from a Qualified Security Assessor (QSA) as to adherence to the PCI DSS.
 * This needs regular rotation of keys
 * Implement network segmentation
   * place your CDE in a dedicated Virtual Private Cloud (VPC)
-  * VPC in default mode to avoid extra subnets
+  * VPC not in default mode to avoid extra subnets
   * Implement Tokenization
+  * in-scope apps in 1 VPC, out-of-scope apps in another (and if needed, both VPC can be peered)
+  * one can use DLP API to sanitize PCI data
 * GCP Tools:
   * Firewalls
   * VPC SC
@@ -35,6 +47,7 @@
 
 ## HIPAA - Health Insurance Portability and Accountability Act
 
+* **Healthcare** related
 * Protected Health Information (PHI)
 * complying with HIPAA is a shared responsibility between the customer and Google
 * Following annual audits are done:
@@ -66,6 +79,7 @@
 
 * Authority to Operate (ATO)
 * a government-wide program that provides a standardized approach to the security assessment, authorization, and continuous monitoring of cloud products and services
+* Google is one of the first hyperscale commercial cloud providers to achieve FedRAMP High on a commercial public cloud offering, and is one of the largest providers of FedRAMP services available on the market today
 * Other docs are:
 
   * Customer Responsibility Matrix (CRM)
@@ -90,6 +104,14 @@
 
 * The purpose of this report is to evaluate an organization’s information systems relevant to security, availability, processing integrity, confidentiality, and privacy
 * Service Organization Controls (SOC) framework is the method by which the control of financial information is measured
+* Relevant are different services: VPC Service Controls, DLP, Cloud Security Command Center, Cloud Armor etc
+
+
+## ISO 27001
+
+* Requirements for an information security management system (ISMS), specifies a set of best practices
+* ONLY GUIDANCE, lays out allow Google to ensure a comprehensive and continually improving model for
+security management
 
 ## ISO 27018
 

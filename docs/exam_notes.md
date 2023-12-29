@@ -19,6 +19,15 @@
   * sevLaunchAttestationReportEvent - ??
   * earlyBootReportEvent - ??
 
+* SA keys
+  * chance of leakage
+  * can't be tracked / audited
+  * no expiration date and hence pose a risk
+
+??? note
+
+    Ditch the keys and use Workload Identity & Workload Identity Federation!
+
 ## BQ Security
 
 * Authorized view
@@ -48,6 +57,21 @@
 
 ## VPC
 
+
+### Best Practises
+
+* Use Custom VPC as Auto mode has same ranges and all routes created (not least privileged)
+  * Auto mode VPC can't be peered as they have same CIDR ranges
+* sensitive or regulated data (like PCI DSS, HIPAA etc) should be put into separate VPC
+* Cloud Interconnect to join on-prem network 
+  * 2 GCP VPC in IC would have more latency as request routes through on-prem
+* Create a shared services VPC if multiple VPC networks need access to common resources but not each other
+* To secure a network, add VPC SC
+* Isolate VMs using service accounts when possible
+  * Using SA is preferred over tags as changing this is tougher
+* Use automation to monitor security policies when using tags
+
+
 ### Shared VPC
 
 * good security segmentation as only Network User role is ennugh
@@ -59,6 +83,10 @@
 * can be across Org too
 * needed on both sides (at subnet level) - each network has its own Network Admin
 * high throughput and low latency (unlike VPN)
+
+---------
+
+* Network Anomaly needs header and payload info, so only VPC Flow logs are not enough, we need **Packet Mirroring**
 
 ## counts
 
@@ -97,13 +125,6 @@ The security points are as follows:
 
 * Use Google Cloud Armor as a WAF layer with Apigee
 
-## Security Command Center
-
-* Continuous exports findings work only for newly created findings.
-* Continuous exports to Pub/Sub are usually used for forwarding findings to external security management systems such as Splunk or QRadar.
-  * Pub/Sub can be created from Console
-  * BQ is created using `gcloud scc bqexports create`
-
 ## From training
 
 * Cloud Security Scanner
@@ -133,12 +154,27 @@ The security points are as follows:
   * either add expiration time and post that secret is deleted
   * or add IAM with conditions so that access is revoked later
 
+## Load Balancer
+
+* SYN flood attacks - A SYN flood (half-open attack) is a type of denial-of-service (DDoS) attack (at Layer 4) which aims to make a server unavailable to legitimate traffic by consuming all available server resources
+
+
+
+## Notes:
+
+* In case of logs routing to GCS - bucket access needs to be fine-graned
+* SA can't write to target sink if target sink/BQ's project doesn't have Billing Account associated with it
+* One can't delete log bucket if there is linked BQ dataset
+
+
+## Doubts
+
+* Which of the following is always available for the disposable of electronic records within a cloud environment?
+
 ## Check in Console
 
 * BQ Authorized view and dataset
 * DLP
 * Security Command Center
-
-## Load Balancer
-
-* SYN flood attacks ??
+* Firewall Insights
+* Web Security Scanner
