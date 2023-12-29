@@ -165,6 +165,19 @@ The security points are as follows:
 * In case of logs routing to GCS - bucket access needs to be fine-graned
 * SA can't write to target sink if target sink/BQ's project doesn't have Billing Account associated with it
 * One can't delete log bucket if there is linked BQ dataset
+* WAF - Web Application Firewalls
+  * CSP service, appliance, or plugin, that applies a WebACL (ruleset) to an HTTP/S connection
+* DAST - Dynamic AST (blck box)
+  * DAST is used against applications in their running state
+  * effective when testing exposed HTTP and HTML interfaces of web applications
+  * Due to the nature of SAST being a white-box test tool, ``SAST typically delivers more comprehensive results`` than those found using DAST
+* SAST - Static Application Security Testing (white box) 
+  * analysis of the application source code, byte code, and binaries is carried out by the application test without executing the code 
+  * earlier in the development lifecycle
+  * Can be used to find SQL injection attacks, cross-site scripting errors, buffer overflows, and unhandled error conditions
+* Vendor lock-in - cant move to another CSP because of some constraint
+* Vendor lock-out - stuck with CSP which has gone bankrupt or out of business
+
 
 
 ## Doubts

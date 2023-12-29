@@ -13,7 +13,8 @@ top of Google Cloud
 
 ## GDPR
 
-* PII data protection in Europe (data stored in EU)
+* PII data protection in Europe (data stored in EU) - addresses data protection and privacy in the EU
+  * It does apply to other countries doing business with EU entities and is very strict
 * world-class levels of visibility and control over their data through our services
 * Regulates how businesses can collect, use, and store personal data
 * Builds upon current documentation and reporting requirements to increase accountability
@@ -47,7 +48,8 @@ top of Google Cloud
 
 ## HIPAA - Health Insurance Portability and Accountability Act
 
-* **Healthcare** related
+* `Healthcare` related
+* The `HITECH` Act updated HIPAA and is concerned with promoting the adoption of electronic health records and meaningful use of health information technology
 * Protected Health Information (PHI)
 * complying with HIPAA is a shared responsibility between the customer and Google
 * Following annual audits are done:
@@ -102,6 +104,7 @@ top of Google Cloud
 
 ## SOC 2 - Service Organization Controls
 
+* Audit for outsourced services
 * The purpose of this report is to evaluate an organization’s information systems relevant to security, availability, processing integrity, confidentiality, and privacy
 * Service Organization Controls (SOC) framework is the method by which the control of financial information is measured
 * Relevant are different services: VPC Service Controls, DLP, Cloud Security Command Center, Cloud Armor etc
@@ -112,6 +115,14 @@ top of Google Cloud
 * Requirements for an information security management system (ISMS), specifies a set of best practices
 * ONLY GUIDANCE, lays out allow Google to ensure a comprehensive and continually improving model for
 security management
+
+## ISO 27002
+
+* Establishes commonly-accepted control objectives and best practices for implementing `measures to protect PII` in line with the *privacy* principles in ISO/IEC 29100 for the public cloud computing environment
+* Stipulates guidelines based on ISO/IEC 27002, taking into consideration the regulatory requirements for the protection of PII which can apply to a public cloud service provider’s information security risk environment
+* applies to all types and sizes of organizations, including public and private companies, government entities, and not-for-profit organizations, which provide information processing services as PII processors using contractual cloud computing with other entities
+
+
 
 ## ISO 27018
 
