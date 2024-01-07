@@ -87,7 +87,18 @@ endpoints using *.p.googleapis.com
 
 ### Configuring web application firewall (Google Cloud Armor)
 
-### Configuring Cloud DNS security settings
+* Geo-based access control 
+* Pre-configured WAF rules for SQL injection (SQLi) and Cross-Site Scripting (XSS) defense 
+* A custom rules language for custom Layer 7 (L7) filtering policies 
+* Security Command Center integration
+
+### Configuring Cloud DNS security settings DNSSEC
+
+* it can be specified at below levels:
+  1. DNS zone
+  2. top level domain
+  3. DNS resolver
+  
 
 ## Configuring boundary segmentation. Considerations include
 

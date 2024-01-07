@@ -7,6 +7,8 @@
 
 * protected by a blend of hardware-grade encryption, memory isolation, and other services that assure workload, data, and platform integrity
 * All aspects of a workload are secure even in the event of a physical host breach
+* Data at Use is also encrypted with VTPM - only using AMD machines
+
 
 
 

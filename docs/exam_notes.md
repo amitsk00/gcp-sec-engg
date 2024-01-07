@@ -72,6 +72,8 @@
 * Use automation to monitor security policies when using tags
 
 
+*  `Cloud Healthcare API` to remove personally identifying information (PII) and protected health information (PHI) from Digital Imaging and Communications in Medicine
+
 ### Shared VPC
 
 * good security segmentation as only Network User role is ennugh

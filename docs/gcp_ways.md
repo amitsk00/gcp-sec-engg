@@ -5,7 +5,98 @@
 
 ## Cloud Armour
 
+
 ## Load Balancers
+
+![LB tree ](./images/lb-product-tree.svg){ loading=lazy }
+
+
+* Tips:
+  * Only `external` can be global
+  * `internal` LB can be cross-regional or regional
+  * `regional` LB - IPV4 (not IPV6) termination, regulatory need to keep data in single region
+  * `proxy LB` - terminate conn at LB and create new conn from LB to backend
+    * terminate conn using either GFE or Envoy proxy
+  * `pass through LB` - Direct Server Return
+    * conn terminates at backend and response directly goes to client (skips LB) 
+    * always regional (cant be global)
+  * `premium tier` - all internal and global external LB
+  * `standard tier` - IP of LB in standard tier of VPC
+    * regional external
+    * regional classic
+    * not possible for global LB
+  * `global ext Appln` LB is GFE based, but `regional ext Appln` LB is Envoy based
+  * `http proxy uses URL Map` to route using attributes - req path, cookies, headers
+  * Proxy-only subnets are only required for regional external Application Load Balancers
+    * CIDR range to run VM with Envoy proxies
+  * IPV6
+    * Global external HTTP(S) and external proxy Network Load Balancers terminate IPv6 connections at the load balancer and forward traffic to backends over IPv4
+    * IPv6 support in regions: Not all regions support IPv6 traffic for all load balancer types. Check regional availability for specific needs
+    * Internal load balancers do not currently support IPv6 traffic
+    * Other load balancer types, like SSL Proxy and TCP Proxy load balancers, do not have native IPv6 support
+
+![Global Ext Application LB](./images/global-ext-https-lb.svg)
+
+
+* HTTP(S) load balancing
+  * Application LB, for HTTP and HTTPS
+  * across mult backends, across mult regions
+  * single global IP
+  * scalable, fault tolerant, no pre-warming needed
+  * can do content based LB as its at application level
+  * SSL termination at LB
+  * to use gRPC, protocol should be HTTP/2
+
+* TCP/SSL/UDP load balancing
+  * Network LB at L4
+  * can LB at single region or multiple regions
+  * scalable, no pre-warming
+  * it can be proxy or passthrough
+
+
+* Application Load Balancer
+  * forwarding rule
+    * single IP to be used in DNS
+    * can map to a single port
+    * if mult ports needed, mult Forw Rules need to be created - but all these can use single VIP
+  * target proxy
+    * this terminates the connection from client
+  * URL map
+    * matching pattern for URL mapping
+    * this also supports header based traffic steering, weight based traffic splitting and request mirroring
+  * SSL Certs
+    * it needs private keys and SSL certs
+    * certs can be self or Google managed
+    * LB can use Mutual TLS (mTLS) - where LB asks clients to send cert for auth
+  * backed service
+    * MIG or NEG or buckets
+    * has to be in the same project but can use diff VPC (n case of regional LB, it has to be same VPC)
+    * diff VPC doesn't need to have Peering, GFE manages that
+  * Health checks
+  * Firewall rules
+    * for external LB - GFE to backend is needed
+    * for regional LB - proxy-only subnet to backend if needed
+
+* External Application Load Balancers offer the following types of session affinity:
+
+  * NONE. Session affinity is not set for the load balancer.
+  * Client IP affinity
+  * Generated cookie affinity
+  * Header field affinity (not for Classic)
+  * HTTP Cookie affinity (not for Classic)
+
+
+* Proxy Network Load Balancer
+  * reverse proxy and L4
+  * only uses TCP - with or without SSL
+  * allow any valid port from 1-65535
+  * port can be mapped to a diff value at abckend
+  * Cloud Armor is available
+  
+
+
+
+
 
 # Protection levels
 
@@ -55,13 +146,40 @@
 * Storage methods - data is stored in storage
 * Hybrid methods - request starts as COntent method, but results are stored as Storage
 
+
+
+
 ### Inspecting and redacting personally identifiable information (PII)
 
+* Healthcare API is a good option for redacting images
+* DLP API is also now for sensitive  data protection
+
+### de-identification
+
+* Redaction: Deletes all or part of a detected sensitive value.
+* Replacement: Replaces a detected sensitive value with a specified surrogate value.
+* Masking: Replaces a number of characters of a sensitive value with a specified surrogate character, such as a hash (#) or asterisk (*).
+* Crypto-based tokenization: Encrypts the original sensitive data value using a cryptographic key. Sensitive Data Protection supports several types of tokenization, including transformations that can be reversed, or "re-identified."
+* Bucketing: "Generalizes" a sensitive value by replacing it with a range of values. (For example, replacing a specific age with an age range, or temperatures with ranges corresponding to "Hot," "Medium," and "Cold.")
+* Date shifting: Shifts sensitive date values by a random amount of time.
+* Time extraction: Extracts or preserves specified portions of date and time values.
+
 ### Configuring pseudonymization
+
+*  de-identification technique that replaces sensitive data values with cryptographically generated tokens.
+* 2 types
+  * one way
+  * two way (using symmetric keys)
 
 ### Configuring format-preserving substitution
 
 ### Restricting access to BigQuery, Cloud Storage, and Cloud SQL datastores
+
+
+
+
+
+
 
 ## Encryption
 
