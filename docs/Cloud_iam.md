@@ -27,6 +27,20 @@
 
 ### Configuring workload identity federation
 
+* Can be used with AWS or any that supports OIDC - like SAML2.0, MS AD
+* federation is better/safer than using SA as keys can be a risk
+* Workload Identity Pool is used for this
+
+* AD
+  * exchange their Active Directory Kerberos credentials for short-lived Google Cloud credentials. 
+  * Workloads can use these short-lived credentials to access Google Cloud APIs
+    * Workload uses OIDC to get token or SAML Assertion
+    * Workload then use Workload Identity Federation to exchange OIDC token or SAML Assertion against Security Token Service token
+
+
+
+
+
 ## Managing authentication. Considerations include
 
 ### Creating a password and session management policy for user accounts
