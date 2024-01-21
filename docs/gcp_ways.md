@@ -5,6 +5,25 @@
 
 ## Cloud Armour
 
+* WAF solution at GCP, ML based L7 protection against DDoS
+* Mitigate OWASP Top 10 risks and help protect workloads
+* Bot management to stop fraud at the edge through native integration with reCAPTCHA Enterprise
+* security policies
+  * to protect applications
+  * define prioritized rules with configurable match conditions and actions
+  * provide edge security and act on client traffic to **Google Front Ends (GFEs)**
+  * works with Serverless NEG as well
+  `preview mode` helps at early stages
+* Threat Intelligence
+* Named IP address lists
+* Adaptive Protection
+* works with below LB
+  * Global external Application Load Balancer
+  * Classic Application Load Balancer
+  * External proxy Network Load Balancer
+  * External passthrough Network Load Balancer
+
+
 
 ## Load Balancers
 
@@ -20,10 +39,12 @@
   * `pass through LB` - Direct Server Return
     * conn terminates at backend and response directly goes to client (skips LB) 
     * always regional (cant be global)
+  * Proxy can use Google cert, but pass-through need self/own cert
   * `premium tier` - all internal and global external LB
   * `standard tier` - IP of LB in standard tier of VPC
     * regional external
     * regional classic
+    * external passthrough LB
     * not possible for global LB
   * `global ext Appln` LB is GFE based, but `regional ext Appln` LB is Envoy based
   * `http proxy uses URL Map` to route using attributes - req path, cookies, headers
@@ -93,6 +114,9 @@
   * port can be mapped to a diff value at abckend
   * Cloud Armor is available
   
+* pass through load balancer
+  * either uses Maglev or Andromeda 
+  * works for  for TCP, UDP, ESP, GRE, ICMP, and ICMPv6 traffic
 
 
 
@@ -103,6 +127,10 @@
 ## Data protection
 
 ### Governance
+
+
+
+
 
 ### DLP
 

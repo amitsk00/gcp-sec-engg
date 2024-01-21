@@ -31,3 +31,10 @@
 
 ## DNSSEC
 
+* Domain Name System Security Extensions (DNSSEC) - authenticates responses to domain name lookups
+  1. enable at Cloud DNS Zone - Cloud DNS creates and rotates keys auto
+  2. TLD - Top Level Domain - DS record to authenticate DNSKEY
+  3. DNS Resolver - validates signatures
+* In DNSSEC-enabled zones, avoid TTLs longer than 259200 (3 days)
+* need to activate at DNS Zone first and then at DNS Registrar (DS record)
+
