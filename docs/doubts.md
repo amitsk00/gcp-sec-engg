@@ -20,5 +20,15 @@
   * Protection with CDN Offloading
 
 * GAE and usage with NAT/HC ranges
+  * xyz 
 
+
+
+
+
+
+
+
+Implementing security controls for AI/ML systems 
+Determining security requirements for IaaS-hosted and PaaS-hosted training models
 

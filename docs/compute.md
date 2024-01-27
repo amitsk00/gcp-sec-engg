@@ -2,6 +2,12 @@
 
 ## OS Login
 
+* Manage SSH access to your instances using IAM
+* Maintains consistent Linux user identity across VM instances
+* Recommended way to manage many users across multiple instances or projects
+* Simpliﬁes SSH access management
+
+
 
 ## Confidential VM
 
@@ -37,4 +43,54 @@
   3. DNS Resolver - validates signatures
 * In DNSSEC-enabled zones, avoid TTLs longer than 259200 (3 days)
 * need to activate at DNS Zone first and then at DNS Registrar (DS record)
+
+
+
+## MACSec
+
+* 802.1AE Media Access Control Security (MACsec)
+* to encrypt traffic between your on-premises router and Google's edge routers (InterConnect)
+* Encrypt from on-prem router to Edge location 
+* MACsec cipher suite	- GCM-AES-256-XPN (for on-prem)
+* 100GB line is auto capable, for 10GB, need to raise request (`--requested-features=IF_MACSEC`)
+* role needed is`roles/compute.networkAdmin` or permission as `compute.interconnects.getMacsecConfig`
+
+
+
+## Proxy only subnet [here](https://cloud.google.com/load-balancing/docs/proxy-only-subnets)
+
+* Envoy-based load balancers need it 
+* CIDR of /26 is min, but /23 is recommended
+* You can use the non-RFC 1918 address range for the proxy-only subnet
+* can be used only for ENvoy proxies that Google runs it
+  1. A client makes a connection to the IP address and port of the load balancer's forwarding rule.
+  1. Each proxy listens on the IP address and port specified by the corresponding load balancer's forwarding rule. One of the proxies receives and terminates the client's network connection.
+  1. The proxy establishes a connection to the appropriate backend VM or endpoint in a NEG, as determined by the load balancer's URL map and backend services.
+* At any point, only one subnet with any purpose can be active in each region of a VPC network
+* Where to use:
+  * with purpose GLOBAL_MANAGED_PROXY
+    * Cross-region internal Application Load Balancer
+    * Cross-region internal proxy Network Load Balancer
+  * with purpose REGIONAL_MANAGED_PROXY
+    * Regional external Application Load Balancer
+    * Regional internal Application Load Balancer
+    * Regional external proxy Network Load Balancer
+    * Regional internal proxy Network Load Balancer  
+
+```
+gcloud compute networks subnets create SUBNET_NAME \
+    --purpose=REGIONAL_MANAGED_PROXY or GLOBAL_MANAGED_PROXY \
+    --role=ACTIVE \
+    --region=REGION \
+    --network=VPC_NETWORK_NAME \
+    --range=CIDR_RANGE
+```
+
+* Limitations
+  * You can't have both an INTERNAL_HTTPS_LOAD_BALANCER and a REGIONAL_MANAGED_PROXY subnet in the same network and region, in the same way you can't have two REGIONAL_MANAGED_PROXY proxies or two INTERNAL_HTTPS_LOAD_BALANCER proxies.
+  * You can create only one active and one backup proxy-only subnet in each region in each VPC network.
+  * You can change the role of a proxy-only subnet from backup to active by updating the subnet. When you do that, Google Cloud automatically changes the previously active proxy-only subnet to backup. You cannot explicitly set the role of a proxy-only subnet to backup by updating it.
+  * Google Cloud doesn't warn you if your proxy-only subnet runs out of IP addresses. However, you can configure Monitoring to monitor the IP address usage of your proxy-only subnet. You can define alerting policies to set up an alert for the loadbalancing.googleapis.com/subnet/proxy_only/addresses metric.
+  * Proxy-only subnets don't support VPC Flow Logs.
+
 

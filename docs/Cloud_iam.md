@@ -27,6 +27,7 @@
 
 ### Configuring workload identity federation
 
+* Workload Identity Federation = when some services of yours deployed outside of GCP (in on-premises or other hyperscalers) need to access GCP resources / APIs.
 * Can be used with AWS or any that supports OIDC - like SAML2.0, MS AD
 * federation is better/safer than using SA as keys can be a risk
 * Workload Identity Pool is used for this

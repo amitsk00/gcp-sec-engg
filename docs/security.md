@@ -95,6 +95,51 @@
   * Virtual Machine Threat Detection
   * Web Security Scanner
 
+
+## Context aware  Access [here](https://cloud.google.com/access-context-manager/docs/overview)  
+
+* to define fine-grained, attribute based access control for projects and resources
+* This only defines policy, its enforced by others like VPC SC/IAP/IAM Conditions
+* Access Policy is made up of
+  * Access Levels
+  * Service Perimeters
+
+* made up of Access Level which is
+  * Device type, operating system and version 
+  * IP address (can't include private IP ranges)
+  * User identity
+
+```
+gcloud access-context-manager policies create \
+--organization ORGANIZATION_ID [--scopes=SCOPE] --title POLICY_TITLE
+```  
+
+
+
+## Intrusion Detection System [here](https://cloud.google.com/security/products/intrusion-detection-system?hl=en)
+
+* Easy deployment and minimal upkeep
+  * Network-based threat detection
+  * Cloud-native and managed
+* Backed by industry-leading threat research ( built with Palo Alto Networks’ threat detection technologies)
+  * Industry-leading security breadth and efficacy
+* Supporting customers’ compliance goals
+* Integrates with Chronicle (security analytics platform), SIEM and SOAR
+* If using Shared VPC, single IDS can support multiple proj using shared VPC
+* IDS Enpoint is a zonal resource which monitors 
+* uses *Packet Mirroring* based on
+  1. subnet - all instances in t
+  2. tags - upto 5 tags are allowed
+  3. individual VM - upto 50 
+* Each IDS instance can capable of inspecting traffic in a single region
+  1. it peers google network
+  2. creates 3 VM on Google nextwork for IDS
+  2. Private Service Access is a link between VPC and mirrored VPC
+  2. packet mirroring and logs are used by this
+* This is needed for PCI DSS and HIPAA
+
+
+
 ### Configuring and monitoring Security Command Center (Security Health Analytics, Event Threat Detection, Container Threat Detection, Web Security Scanner)
 
 

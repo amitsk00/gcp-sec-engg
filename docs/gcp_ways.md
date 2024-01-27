@@ -260,9 +260,3 @@
 * Vuln Scanning
 * SIEM
 
-## OS Login
-
-* Manage SSH access to your instances using IAM
-* Maintains consistent Linux user identity across VM instances
-* Recommended way to manage many users across multiple instances or projects
-* Simpliﬁes SSH access management

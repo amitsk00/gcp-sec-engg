@@ -10,6 +10,27 @@ top of Google Cloud
 
 
 
+## Assured Workload
+
+* Use it only when - actively subject to regulatory compliance
+* How to
+  * Create an Assured Workloads folder
+  * select Region and Compliance (HIPAA or FedRamp etc)
+  * folder name should start with "aw"
+  * add new CMEK - with new project
+  * resource usage restriction organization policy - to add only supported APIs
+
+* Compliance without compromise
+* Simplified security and compliance
+* Reduced cost and risk
+* comply with data residency
+* Cryptographic control over data access
+* Assured Support
+* Personnel data access controls based on attributes
+
+
+
+
 
 ## GDPR
 
@@ -25,6 +46,7 @@ top of Google Cloud
 * cardholder data (CHD)
 * CDE:  cardholder data environment.
 * All systems that store, process, or transmit cardholder data (CHD) are in scope for your PCI DSS assessment.
+* CLoud IDS is mandatory here
 * to establish a “minimum security standard” **to protect customers’ payment card information**.
 * The Attestation of Compliance provides formal assurance from a Qualified Security Assessor (QSA) as to adherence to the PCI DSS.
 * This needs regular rotation of keys
