@@ -72,6 +72,13 @@ endpoints using *.p.googleapis.com
 * Configuring web application firewall (WAF) (Google Cloud Armor)
 * Configuring Cloud DNS
 
+* Network Isolation
+  * diff VPC for each need
+  * one VPC for on-prem conn (VPN etc)
+  * one VPC that allows public internet access
+  * one VPC just within Google
+
+
 ## Designing perimeter security. Considerations include
 
 ### Configuring network perimeter controls (firewall rules, hierarchical firewalls, Identity-Aware Proxy [IAP], load balancers, and Certificate Authority Service)
@@ -80,7 +87,18 @@ endpoints using *.p.googleapis.com
 
 ### Configuring web application firewall (Google Cloud Armor)
 
-### Configuring Cloud DNS security settings
+* Geo-based access control 
+* Pre-configured WAF rules for SQL injection (SQLi) and Cross-Site Scripting (XSS) defense 
+* A custom rules language for custom Layer 7 (L7) filtering policies 
+* Security Command Center integration
+
+### Configuring Cloud DNS security settings DNSSEC
+
+* it can be specified at below levels:
+  1. DNS zone
+  2. top level domain
+  3. DNS resolver
+  
 
 ## Configuring boundary segmentation. Considerations include
 
@@ -93,3 +111,43 @@ endpoints using *.p.googleapis.com
 ### Designing and configuring private connectivity between data centers and VPC network (IPsec and Cloud Interconnect)
 
 ### Using Cloud NAT to enable outbound traffic
+
+* outbound connection to public internet (public NAT) or other VPC (private NAT) for
+  * Compute Engine virtual machine (VM) instances
+  * Private Google Kubernetes Engine (GKE) clusters
+  * Cloud Run instances through Serverless VPC Access
+  * Cloud Functions instances through Serverless VPC Access
+  * App Engine standard environment instances through Serverless VPC Access
+* If request is to Private Google Access, NAT is not used
+
+
+
+### Firewall Insights
+
+* helps to understand and optimize firewalls
+* Metric
+  * derived from Firewall logging - only if logging is enabled
+* provides insights, recommendations, and metrics about how your firewall rules are being used
+* overlapping ranges
+* unused ranges or ports
+* types
+  * Shadowed firewall rule 
+  * Overly permissive rule 
+  * Deny with no hits
+* Roles here:
+  * Firewall Recommender Admin 
+  * Firewall Recommender Viewer 
+
+
+
+### Packet monitoring
+
+* clone the traffic from VM (not VPC) and send for examination
+* captures all traffic and package data, like payloads and headers
+* Collector destination is an instance group that is behind an internal load balancer. Instances in the instance group are referred to as collector instances
+  * internal passthrough Network Load Balancer.
+  * forwarding rule must be configured for Packet Mirroring
+* configure filters to collect traffic based on protocol, CIDR ranges (IPv4, IPv6, or both), direction of traffic (ingress-only, egress-only, or both), or a combination
+* _priority of a packet mirroring policy is always 1000 and cannot be changed_
+* VPC Flow Logs doesn't log mirrored packets (on target side)
+* You cannot mirror and collect traffic on the same network interface of a VM instance because doing this would cause a mirroring loop

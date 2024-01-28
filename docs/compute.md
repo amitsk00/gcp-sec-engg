@@ -1,0 +1,180 @@
+# Compute 
+
+## OS Login
+
+* Manage SSH access to your instances using IAM
+* Maintains consistent Linux user identity across VM instances
+* Recommended way to manage many users across multiple instances or projects
+* Simpliﬁes SSH access management
+
+
+
+## Confidential VM
+
+* protected by a blend of hardware-grade encryption, memory isolation, and other services that assure workload, data, and platform integrity
+* All aspects of a workload are secure even in the event of a physical host breach
+* Data at Use is also encrypted with VTPM - only using AMD machines
+
+
+
+
+
+
+## Shielded VM
+
+
+## Boot Integrity
+
+* TPM – module embedded in a system
+  * Anchoring the trustworthiness of a system to hardware not software
+  * Tamper-resistant security chip installed on the device or built into  PCs, tablets, and phones
+  * Stores passwords, certificates, and encryption keys needed to authenticate the platform
+* Contributes to Zero Trust for devices and platforms:
+  * Integrity (ensures system has not been altered at a low level)
+  * Authentication (ensures system is in fact the correct system)
+  * Privacy (ensures system is protected from prying eyes)
+
+
+## DNSSEC
+
+* Domain Name System Security Extensions (DNSSEC) - authenticates responses to domain name lookups
+  1. enable at Cloud DNS Zone - Cloud DNS creates and rotates keys auto
+  2. TLD - Top Level Domain - DS record to authenticate DNSKEY
+  3. DNS Resolver - validates signatures
+* In DNSSEC-enabled zones, avoid TTLs longer than 259200 (3 days)
+* need to activate at DNS Zone first and then at DNS Registrar (DS record)
+
+
+
+## MACSec
+
+* 802.1AE Media Access Control Security (MACsec)
+* to encrypt traffic between your on-premises router and Google's edge routers (InterConnect)
+* Encrypt from on-prem router to Edge location 
+* MACsec cipher suite	- GCM-AES-256-XPN (for on-prem)
+* 100GB line is auto capable, for 10GB, need to raise request (`--requested-features=IF_MACSEC`)
+* role needed is`roles/compute.networkAdmin` or permission as `compute.interconnects.getMacsecConfig`
+
+
+
+## Proxy only subnet [here](https://cloud.google.com/load-balancing/docs/proxy-only-subnets)
+
+* Envoy-based load balancers need it 
+* CIDR of /26 is min, but /23 is recommended
+* You can use the non-RFC 1918 address range for the proxy-only subnet
+* can be used only for ENvoy proxies that Google runs it
+  1. A client makes a connection to the IP address and port of the load balancer's forwarding rule.
+  1. Each proxy listens on the IP address and port specified by the corresponding load balancer's forwarding rule. One of the proxies receives and terminates the client's network connection.
+  1. The proxy establishes a connection to the appropriate backend VM or endpoint in a NEG, as determined by the load balancer's URL map and backend services.
+* At any point, only one subnet with any purpose can be active in each region of a VPC network
+* Where to use:
+  * with purpose GLOBAL_MANAGED_PROXY
+    * Cross-region internal Application Load Balancer
+    * Cross-region internal proxy Network Load Balancer
+  * with purpose REGIONAL_MANAGED_PROXY
+    * Regional external Application Load Balancer
+    * Regional internal Application Load Balancer
+    * Regional external proxy Network Load Balancer
+    * Regional internal proxy Network Load Balancer  
+
+```
+gcloud compute networks subnets create SUBNET_NAME \
+    --purpose=REGIONAL_MANAGED_PROXY or GLOBAL_MANAGED_PROXY \
+    --role=ACTIVE \
+    --region=REGION \
+    --network=VPC_NETWORK_NAME \
+    --range=CIDR_RANGE
+```
+
+* Limitations
+  * You can't have both an INTERNAL_HTTPS_LOAD_BALANCER and a REGIONAL_MANAGED_PROXY subnet in the same network and region, in the same way you can't have two REGIONAL_MANAGED_PROXY proxies or two INTERNAL_HTTPS_LOAD_BALANCER proxies.
+  * You can create only one active and one backup proxy-only subnet in each region in each VPC network.
+  * You can change the role of a proxy-only subnet from backup to active by updating the subnet. When you do that, Google Cloud automatically changes the previously active proxy-only subnet to backup. You cannot explicitly set the role of a proxy-only subnet to backup by updating it.
+  * Google Cloud doesn't warn you if your proxy-only subnet runs out of IP addresses. However, you can configure Monitoring to monitor the IP address usage of your proxy-only subnet. You can define alerting policies to set up an alert for the loadbalancing.googleapis.com/subnet/proxy_only/addresses metric.
+  * Proxy-only subnets don't support VPC Flow Logs.
+
+
+
+## Confidential Computing
+
+* Provides encryption-in-use for VMs handling sensitive data or workloads.
+* Keys can't be accessed by Google.
+* Additional cost for each confidential VM; might increase log usage and associated costs
+* used by Compute Engine and GKE and Dataproc (works only with **AMD EPYC** processor)
+  * Isolation - encryption keys are generated by AMD Secure Processor and are not accessible to Google as well
+  * Attestation - it used vTPM and created launch report
+  * High Performance - no degradation for any workloads
+
+```cli
+gcloud kms keys create key \
+    --keyring key-ring \
+    --location location \
+    --purpose "encryption" \
+    --protection-level "hsm"
+```
+
+``` Encrypt
+gcloud kms encrypt \
+    --location "global" \
+    --keyring "test" \
+    --key "quickstart" \
+    --plaintext-file ./mysecret.txt \
+    --ciphertext-file ./mysecret.txt.encrypted
+```
+
+Encrypt in Python
+
+```python
+import base64
+from google.cloud import kms
+
+def encrypt_symmetric(
+    project_id: str, location_id: str, key_ring_id: str, key_id: str, plaintext: str ) -> bytes:
+
+    plaintext_bytes = plaintext.encode("utf-8")
+    plaintext_crc32c = crc32c(plaintext_bytes)
+    client = kms.KeyManagementServiceClient()
+    key_name = client.crypto_key_path(project_id, location_id, key_ring_id, key_id)
+
+    encrypt_response = client.encrypt(
+        request={
+            "name": key_name,
+            "plaintext": plaintext_bytes,
+            "plaintext_crc32c": plaintext_crc32c,
+        }
+    )
+
+    if not encrypt_response.verified_plaintext_crc32c:
+        raise Exception("The request sent to the server was corrupted in-transit.")
+    if not encrypt_response.ciphertext_crc32c == crc32c(encrypt_response.ciphertext):
+        raise Exception(
+            "The response received from the server was corrupted in-transit."
+        )
+
+    print(f"Ciphertext: {base64.b64encode(encrypt_response.ciphertext)}")
+    return encrypt_response
+
+
+def crc32c(data: bytes) -> int:
+
+    import crcmod  # type: ignore
+    import six  # type: ignore
+
+    crc32c_fun = crcmod.predefined.mkPredefinedCrcFun("crc-32c")
+    return crc32c_fun(six.ensure_binary(data))
+
+
+```
+
+
+
+---
+
+``` Decrypt
+gcloud kms decrypt \
+    --location "global" \
+    --keyring "test" \
+    --key "quickstart" \
+    --ciphertext-file ./mysecret.txt.encrypted \
+    --plaintext-file ./mysecret.txt.decrypted
+```

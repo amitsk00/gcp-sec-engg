@@ -27,6 +27,21 @@
 
 ### Configuring workload identity federation
 
+* Workload Identity Federation = when some services of yours deployed outside of GCP (in on-premises or other hyperscalers) need to access GCP resources / APIs.
+* Can be used with AWS or any that supports OIDC - like SAML2.0, MS AD
+* federation is better/safer than using SA as keys can be a risk
+* Workload Identity Pool is used for this
+
+* AD
+  * exchange their Active Directory Kerberos credentials for short-lived Google Cloud credentials. 
+  * Workloads can use these short-lived credentials to access Google Cloud APIs
+    * Workload uses OIDC to get token or SAML Assertion
+    * Workload then use Workload Identity Federation to exchange OIDC token or SAML Assertion against Security Token Service token
+
+
+
+
+
 ## Managing authentication. Considerations include
 
 ### Creating a password and session management policy for user accounts
@@ -122,6 +137,7 @@
 * Federation using Cloud Identity or Google Workspace - external ID uses External ID Provider (IdP) to access GCP. GCP also has ID for the same user - pref with same mail ID. GCDS or AD can be used to synch up IDs
 * Workforce identity federation - can use IdP to auth group of users, **no need** to synch/GCDS
 
+
 ## IdP
 
 * The maximum size for attribute mappings is 4 KB.
@@ -152,6 +168,7 @@
 3. system checks for Allow policy
     1. if access is given (present in Allow policy), access is granted
     2. else (missing in Allow policy), access is denied
+
 
 ## GCDS
 
@@ -222,4 +239,5 @@
 
 ### Managing a super administrator account
 
-<https://cloud.google.com/resource-manager/docs/super-admin-best-practices>
+[here](https://cloud.google.com/resource-manager/docs/super-admin-best-practices)
+

@@ -1,6 +1,16 @@
 # test exam wise
 
-<https://www.cloudskillsboost.google/course_sessions/2971352/quizzes/376102>
+[quiz link](https://www.cloudskillsboost.google/course_sessions/2971352/quizzes/376102)
+
+
+## counts
+
+* Each Allow policy can have 1500 principals - including duplicates
+* Each Allow policy can have 250 domains or Groups
+
+
+
+
 
 ## VM Security
 
@@ -19,10 +29,20 @@
   * sevLaunchAttestationReportEvent - ??
   * earlyBootReportEvent - ??
 
+* SA keys
+  * chance of leakage
+  * can't be tracked / audited
+  * no expiration date and hence pose a risk
+
+??? note
+
+    Ditch the keys and use Workload Identity & Workload Identity Federation!
+
 ## BQ Security
 
 * Authorized view
   * main table and target view should be in same regional location (but can be in diff datasets)
+  * `BQ User` role is enough to run queries against it and `bigquery.dataViewer` to see the data
 
 ## IAM
 
@@ -48,6 +68,21 @@
 
 ## VPC
 
+### Best Practises
+
+* Use Custom VPC as Auto mode has same ranges and all routes created (not least privileged)
+  * Auto mode VPC can't be peered as they have same CIDR ranges
+* sensitive or regulated data (like PCI DSS, HIPAA etc) should be put into separate VPC
+* Cloud Interconnect to join on-prem network
+  * 2 GCP VPC in IC would have more latency as request routes through on-prem
+* Create a shared services VPC if multiple VPC networks need access to common resources but not each other
+* To secure a network, add VPC SC
+* Isolate VMs using service accounts when possible
+  * Using SA is preferred over tags as changing this is tougher
+* Use automation to monitor security policies when using tags
+
+* `Cloud Healthcare API` to remove personally identifying information (PII) and protected health information (PHI) from Digital Imaging and Communications in Medicine
+
 ### Shared VPC
 
 * good security segmentation as only Network User role is ennugh
@@ -60,10 +95,9 @@
 * needed on both sides (at subnet level) - each network has its own Network Admin
 * high throughput and low latency (unlike VPN)
 
-## counts
+---
 
-* Each Allow policy can have 1500 principals - including duplicates
-* Each Allow policy can have 250 domains or Groups
+* Network Anomaly needs header and payload info, so only VPC Flow logs are not enough, we need **Packet Mirroring**
 
 ## Special
 
@@ -97,19 +131,8 @@ The security points are as follows:
 
 * Use Google Cloud Armor as a WAF layer with Apigee
 
-## Security Command Center
 
-* Continuous exports findings work only for newly created findings.
-* Continuous exports to Pub/Sub are usually used for forwarding findings to external security management systems such as Splunk or QRadar.
-  * Pub/Sub can be created from Console
-  * BQ is created using `gcloud scc bqexports create`
 
-## From training
-
-* Cloud Security Scanner
-* Cloud Armor
-* Cert Auth Service
-* Web Security Scanner
 
 ## DNS
 
@@ -133,12 +156,33 @@ The security points are as follows:
   * either add expiration time and post that secret is deleted
   * or add IAM with conditions so that access is revoked later
 
-## Check in Console
-
-* BQ Authorized view and dataset
-* DLP
-* Security Command Center
-
 ## Load Balancer
 
-* SYN flood attacks ??
+* SYN flood attacks - A SYN flood (half-open attack) is a type of denial-of-service (DDoS) attack (at Layer 4) which aims to make a server unavailable to legitimate traffic by consuming all available server resources
+
+## Notes
+
+* In case of logs routing to GCS - bucket access needs to be fine-graned
+* SA can't write to target sink if target sink/BQ's project doesn't have Billing Account associated with it
+* One can't delete log bucket if there is linked BQ dataset
+* WAF - Web Application Firewalls
+  * CSP service, appliance, or plugin, that applies a WebACL (ruleset) to an HTTP/S connection
+* DAST - Dynamic AST (blck box)
+  * DAST is used against applications in their running state
+  * effective when testing exposed HTTP and HTML interfaces of web applications
+  * Due to the nature of SAST being a white-box test tool, ``SAST typically delivers more comprehensive results`` than those found using DAST
+* SAST - Static Application Security Testing (white box)
+  * analysis of the application source code, byte code, and binaries is carried out by the application test without executing the code
+  * earlier in the development lifecycle
+  * Can be used to find SQL injection attacks, cross-site scripting errors, buffer overflows, and unhandled error conditions
+* Vendor lock-in - cant move to another CSP because of some constraint
+* Vendor lock-out - stuck with CSP which has gone bankrupt or out of business
+* **HA VPN over InterConnect** is beneficial as it can be set using Console or CLI, and can also use private IP ranges
+
+## Doubts
+
+* Which of the following is always available for the disposable of electronic records within a cloud environment?
+
+
+
+

@@ -2,9 +2,41 @@
 # Compliance
 
 * Compliance Reports Manager shows all the reports
+* Google Cloud meets many third-party and government compliance standards worldwide
+* Google Cloud has been certified as secure, but that does not mean that applications built on Google Cloud are automatically certified
+* Companies need to worry about only those services you build on
+top of Google Cloud
+
+
+
+
+## Assured Workload
+
+* Use it only when - actively subject to regulatory compliance
+* How to
+  * Create an Assured Workloads folder
+  * select Region and Compliance (HIPAA or FedRamp etc)
+  * folder name should start with "aw"
+  * add new CMEK - with new project
+  * resource usage restriction organization policy - to add only supported APIs
+
+* Compliance without compromise
+* Simplified security and compliance
+* Reduced cost and risk
+* comply with data residency
+* Cryptographic control over data access
+* Assured Support
+* Personnel data access controls based on attributes
+
+
+
+
 
 ## GDPR
 
+* PII data protection in Europe (data stored in EU) - addresses data protection and privacy in the EU
+  * It does apply to other countries doing business with EU entities and is very strict
+* world-class levels of visibility and control over their data through our services
 * Regulates how businesses can collect, use, and store personal data
 * Builds upon current documentation and reporting requirements to increase accountability
 * Authorizes fines on businesses who fail to meet its requirements
@@ -14,13 +46,16 @@
 * cardholder data (CHD)
 * CDE:  cardholder data environment.
 * All systems that store, process, or transmit cardholder data (CHD) are in scope for your PCI DSS assessment.
-* to establish a “minimum security standard” to protect customers’ payment card information.
+* CLoud IDS is mandatory here
+* to establish a “minimum security standard” **to protect customers’ payment card information**.
 * The Attestation of Compliance provides formal assurance from a Qualified Security Assessor (QSA) as to adherence to the PCI DSS.
 * This needs regular rotation of keys
 * Implement network segmentation
   * place your CDE in a dedicated Virtual Private Cloud (VPC)
-  * VPC in default mode to avoid extra subnets
+  * VPC not in default mode to avoid extra subnets
   * Implement Tokenization
+  * in-scope apps in 1 VPC, out-of-scope apps in another (and if needed, both VPC can be peered)
+  * one can use DLP API to sanitize PCI data
 * GCP Tools:
   * Firewalls
   * VPC SC
@@ -35,6 +70,8 @@
 
 ## HIPAA - Health Insurance Portability and Accountability Act
 
+* `Healthcare` related
+* The `HITECH` Act updated HIPAA and is concerned with promoting the adoption of electronic health records and meaningful use of health information technology
 * Protected Health Information (PHI)
 * complying with HIPAA is a shared responsibility between the customer and Google
 * Following annual audits are done:
@@ -66,6 +103,7 @@
 
 * Authority to Operate (ATO)
 * a government-wide program that provides a standardized approach to the security assessment, authorization, and continuous monitoring of cloud products and services
+* Google is one of the first hyperscale commercial cloud providers to achieve FedRAMP High on a commercial public cloud offering, and is one of the largest providers of FedRAMP services available on the market today
 * Other docs are:
 
   * Customer Responsibility Matrix (CRM)
@@ -88,8 +126,25 @@
 
 ## SOC 2 - Service Organization Controls
 
+* Audit for outsourced services
 * The purpose of this report is to evaluate an organization’s information systems relevant to security, availability, processing integrity, confidentiality, and privacy
 * Service Organization Controls (SOC) framework is the method by which the control of financial information is measured
+* Relevant are different services: VPC Service Controls, DLP, Cloud Security Command Center, Cloud Armor etc
+
+
+## ISO 27001
+
+* Requirements for an information security management system (ISMS), specifies a set of best practices
+* ONLY GUIDANCE, lays out allow Google to ensure a comprehensive and continually improving model for
+security management
+
+## ISO 27002
+
+* Establishes commonly-accepted control objectives and best practices for implementing `measures to protect PII` in line with the *privacy* principles in ISO/IEC 29100 for the public cloud computing environment
+* Stipulates guidelines based on ISO/IEC 27002, taking into consideration the regulatory requirements for the protection of PII which can apply to a public cloud service provider’s information security risk environment
+* applies to all types and sizes of organizations, including public and private companies, government entities, and not-for-profit organizations, which provide information processing services as PII processors using contractual cloud computing with other entities
+
+
 
 ## ISO 27018
 
@@ -111,6 +166,8 @@
   -------
   * Get to the root cause fast with an intuitive workbench
   * Proactively identify threats in your environment
+
+
 
 ## Other aspects
 
