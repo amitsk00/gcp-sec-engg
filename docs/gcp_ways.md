@@ -3,6 +3,11 @@
 
 ## GFE
 
+* The GFE is an HTTP/TCP reverse proxy which is used to serve requests to many Google properties including: Search, Ads, G Suite (Gmail, Chat, Meet, Docs, Drive, etc.), Cloud External HTTP(S) Load Balancing, Proxy/SSL Load Balancing, and many Cloud APIs
+* 1st level sends request to backend, or through 2nd level in some cases
+* GFE additionally applies protection against denial of service attacks.
+
+
 ## Cloud Armour
 
 * WAF solution at GCP, ML based L7 protection against DDoS
@@ -131,87 +136,22 @@
 
 
 
-
-### DLP
-
-#### InfoTypes
-
-* Pre Defined - many options are available
-* Custom - can be created based on need - like, custom internal mail ID , and then `likelihood` can be attached to each
-  * small/regular custom dict
-    * use when list is static
-    * count can be in thousands
-    * e.g. Room Names
-  * large/stored custom dict
-    * when the list is present in bucket or BQ
-    * count can be in millions
-    * list of phrases is stored in BQ table or bucket file, and then DLP converts that into a dict file (not editable by users)
-
-  * RegEx
-
-* these types can be of INCLUDE or EXCLUDE category
-  * Exclude can be used to reduce the outcome
-    Hotword - can be used to increase the likelihood
-* These can be RegEx , digits with precision, math checksum or prefixes
-* `Likelihood` is returns by API to confirm the same as name suggests
-
-#### Inspection
-
-* Inspection jobs -  You can inspect a BigQuery table, a Cloud Storage bucket or folder, and a Datastore kind
-* content.inspect -  method of the DLP API lets you send data directly to the DLP API for inspection
-* hybrid job - lets you scan payloads of data sent from any source, and then store the inspection findings in Google Cloud
-
-#### De-Identify
-
-* Create a de-identified copy of Cloud Storage data using an inspection job
-* content.deidentify - request to the DLP API
-
-* `dlpJob` to create the job
-
-#### Sensitive Data Protection provides the following method types
-
-* Content methods - data sent directly to API
-* Storage methods - data is stored in storage
-* Hybrid methods - request starts as COntent method, but results are stored as Storage
-
-
-
-
-### Inspecting and redacting personally identifiable information (PII)
-
-* Healthcare API is a good option for redacting images
-* DLP API is also now for sensitive  data protection
-
-### de-identification
-
-* Redaction: Deletes all or part of a detected sensitive value.
-* Replacement: Replaces a detected sensitive value with a specified surrogate value.
-* Masking: Replaces a number of characters of a sensitive value with a specified surrogate character, such as a hash (#) or asterisk (*).
-* Crypto-based tokenization: Encrypts the original sensitive data value using a cryptographic key. Sensitive Data Protection supports several types of tokenization, including transformations that can be reversed, or "re-identified."
-* Bucketing: "Generalizes" a sensitive value by replacing it with a range of values. (For example, replacing a specific age with an age range, or temperatures with ranges corresponding to "Hot," "Medium," and "Cold.")
-* Date shifting: Shifts sensitive date values by a random amount of time.
-* Time extraction: Extracts or preserves specified portions of date and time values.
-
-### Configuring pseudonymization
-
-*  de-identification technique that replaces sensitive data values with cryptographically generated tokens.
-* 2 types
-  * one way
-  * two way (using symmetric keys)
-
 ### Configuring format-preserving substitution
+
+* `Pseudonymization` is a technique that replaces sensitive data with cryptographically generated tokens
+  * also referred to as tokenization or surrogate replacement
+* symmetric keys allow 2 ways changes and hence the name
+* Types
+  * Deterministic encryption using AES-SIV - produces hash and hence orig char set is not preserved, can re-identify
+  * Format preserving encryption - both the character set and the length of the input value are preserved in the output value, can re-identify
+    * char-set can be nemuric, hexa, alpha-numeric 
+  * Cryptographic hashing - uses HMAC-SHA-256, length is same, but can't re-identify
+
 
 ### Restricting access to BigQuery, Cloud Storage, and Cloud SQL datastores
 
 
 
-
-
-
-
-## Encryption
-
-## HSM
 
 ## Data Masking
 

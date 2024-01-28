@@ -28,7 +28,5 @@
 
 
 
-
-Implementing security controls for AI/ML systems 
-Determining security requirements for IaaS-hosted and PaaS-hosted training models
+* Determining security requirements for IaaS-hosted and PaaS-hosted training models
 

@@ -27,7 +27,6 @@
 * Tips
   * Compute Default SA has editor role so better use custom SA for cluster
 
-
 ## RBAC
 
 * Secure your cluster by granting privileged operations (accessing secrets, for example) only to admin users.
@@ -39,7 +38,6 @@
 !!! Note  ""
 
     IAM gives access at project level. RBAC can be used to give access at Cluster or Namespace level
-
 
 ## GKE Auth Networks [here](https://cloud.google.com/kubernetes-engine/docs/how-to/authorized-networks)
 
@@ -64,7 +62,7 @@ gcloud container clusters create-auto CLUSTER_NAME \
 * Isolate Control Plane with `--enable-private-endpoint`
 * Isolate Node Pools with
   * Standard cluster with `--enable-private-nodes`
-  * Autopilot cluster with ` cloud.google.com/private-node=true`
+  * Autopilot cluster with `cloud.google.com/private-node=true`
 
 * After making it private, if no NAT, external Connectivity may fail
 
@@ -74,4 +72,4 @@ gcloud container clusters create-auto CLUSTER_NAME \
 * Autopilot automatically provisions nodes backed by specialized machines, manages scheduling, and allocates hardware
   * Like, Hardware Accelerator for ML, ARM based compute for Mobile apps
 * support using node selectors and node affinity to configure **workload separation**
-* CLI command is `gcloud container clusters create-auto `
+* CLI command is `gcloud container clusters create-auto`

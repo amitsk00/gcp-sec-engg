@@ -42,6 +42,7 @@
 
 * Authorized view
   * main table and target view should be in same regional location (but can be in diff datasets)
+  * `BQ User` role is enough to run queries against it and `bigquery.dataViewer` to see the data
 
 ## IAM
 
@@ -130,12 +131,8 @@ The security points are as follows:
 
 * Use Google Cloud Armor as a WAF layer with Apigee
 
-## From training
 
-* Cloud Security Scanner
-* Cloud Armor
-* Cert Auth Service
-* Web Security Scanner
+
 
 ## DNS
 
@@ -189,8 +186,3 @@ The security points are as follows:
 
 
 
-## Check in Console
-
-* BQ Authorized view and dataset
-* Firewall Insights
-* Web Security Scanner

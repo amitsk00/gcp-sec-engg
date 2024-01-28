@@ -73,7 +73,7 @@ gcloud resource-manager tags keys create SHORT_NAME \
     --parent=RESOURCE_ID
 ```
 
-*
+
 
 ## some roles
 

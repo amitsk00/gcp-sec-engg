@@ -137,6 +137,7 @@
 * Federation using Cloud Identity or Google Workspace - external ID uses External ID Provider (IdP) to access GCP. GCP also has ID for the same user - pref with same mail ID. GCDS or AD can be used to synch up IDs
 * Workforce identity federation - can use IdP to auth group of users, **no need** to synch/GCDS
 
+
 ## IdP
 
 * The maximum size for attribute mappings is 4 KB.
@@ -167,6 +168,7 @@
 3. system checks for Allow policy
     1. if access is given (present in Allow policy), access is granted
     2. else (missing in Allow policy), access is denied
+
 
 ## GCDS
 
@@ -237,4 +239,5 @@
 
 ### Managing a super administrator account
 
-<https://cloud.google.com/resource-manager/docs/super-admin-best-practices>
+[here](https://cloud.google.com/resource-manager/docs/super-admin-best-practices)
+
