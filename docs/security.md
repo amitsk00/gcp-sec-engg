@@ -1,5 +1,17 @@
 # Security
 
+
+## Deploying Secure Web Proxy
+
+* helps you secure egress web traffic (HTTP/S)
+* web rqst can originate from VM, containers, serverless env and workloads connected by VPN
+* Access to trusted external web services
+* Monitored access to untrusted web services
+  * Source ID using tags, SA or IP
+  * Target ID using URLs, hostnames
+  * Request based on methods, headers or URLs
+  
+  
 ## Access Context Manager
 
 <https://cloud.google.com/access-context-manager/docs/access-control>
@@ -244,6 +256,12 @@ gcloud access-context-manager policies create \
   * With IAP, you can set up group-based application access: a resource could be accessible for employees and inaccessible for contractors, or only accessible to a specific department
   * when you want to enforce access control policies for applications and resources
   * works with signed headers or GAE Standard as well
+* IAP doesn't handle HC - JWT header validation allows the health check path
+* Signed headers provide secondary security in case someone bypasses IAP
+  * it strips the x-goog-* headers provided by the client
+  * JWT is in the HTTP request header x-goog-iap-jwt-assertion
+    * JWT header Algorithm	ES256
+
 
 ### Cloud Asset Inventory
 

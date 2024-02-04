@@ -178,11 +178,40 @@ The security points are as follows:
 * Vendor lock-in - cant move to another CSP because of some constraint
 * Vendor lock-out - stuck with CSP which has gone bankrupt or out of business
 * **HA VPN over InterConnect** is beneficial as it can be set using Console or CLI, and can also use private IP ranges
+* Man-in-the-middle and IP/Domain hijacking can be avoided using DNSSEC
+* IPV6 access to PGA - `private_ipv6_google_access = "ENABLE_BIDIRECTIONAL_ACCESS_TO_GOOGLE"`
 
-## Doubts
+---
 
-* Which of the following is always available for the disposable of electronic records within a cloud environment?
+* All key encryption keys (KEKs) are stored in Cloud KMS.
+* Root KMS - This is where the KMS master key is kept
+* GKE pod to pod comms - is always enabled/open. add pod level netowrk policies to restrict it
+* Cloud Key Management Service does not support automatic rotation of asymmetric keys
+* Changing the default storage class of a bucket does not affect any of the objects that already exist in the bucket. gsutil rewite can do it
+* Web Risk API - to determine if URL is malicious or no  
+
+* SA keys auto rotation is not possible. 
+* can older SA key be used - yes, all valid keys can be used for auth
+* VM Instance metadata can be used to get SA keys (using OAuth2 token) safely. 
+
+* Cloud IAP add JWT Asserrtion in header - app need to verify teh same
+* VM IP Forwarding `canIpForward` for sending packets - to make VM work as NAT, it can be set only at *creation* time
+* disposable of electronic records within a cloud - uses the techniques described to achieve compliance with NIST SP 800-88 and and DoD 5220.22-M
+
+* Google recommends using a service account with `G Suite domain-wide delegation` to access a user's Google Drive without relying on current user credentials
+* to know how standard/regulation based responsibilities are shared between customer and GCP, one should refer Shared Responsibility Matrix (for that standard)
+* CSEK can be set at object level and not at bucket level. Also, nt available in Console, need `gsutil`
 
 
 
+## Configuring Workforce Identity Federation
+
+* Workforce is group of users
+* this is used to avoid GCDS and IdP will auth users and allow Google access
+* works with OIDC or SAML2 like Azure AD, ADFS or Okta
+
+
+* Configuring Access Context Manager
+
+* Security Health Analytics - works through Sec Command Center
 

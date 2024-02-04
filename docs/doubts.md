@@ -30,3 +30,11 @@
 
 * Determining security requirements for IaaS-hosted and PaaS-hosted training models
 
+
+## exam basis
+
+
+* SSL Policy - RESTRICTED
+* VPC Flow logs enabled at ??
+* Org policy - override at project level
+
