@@ -79,6 +79,10 @@
   * scalable, no pre-warming
   * it can be proxy or passthrough
 
+* SSL policies:
+  * set min TLS version
+  * MODERN or RESTRICTED profile selection
+  * disable some features
 
 * Application Load Balancer
   * forwarding rule

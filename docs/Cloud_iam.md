@@ -177,6 +177,8 @@
   * external IdP Admin
   * future Admin of GCP Org
 
+* Connects over HTTPS port and uses VPC access connector
+
 * Steps to be taken:
   * Sign up for Cloud Identity or Google Workspace. During the sign-up process, you must provide a contact phone number and email address, the primary domain that you want to use, and the username for the first super-admin user account.
   * Verify the ownership of your primary domain by creating either a TXT or CNAME record in the corresponding DNS zone of your DNS server.
