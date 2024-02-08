@@ -202,16 +202,10 @@ The security points are as follows:
 * to know how standard/regulation based responsibilities are shared between customer and GCP, one should refer Shared Responsibility Matrix (for that standard)
 * CSEK can be set at object level and not at bucket level. Also, nt available in Console, need `gsutil`
 
-
-
-## Configuring Workforce Identity Federation
-
-* Workforce is group of users
-* this is used to avoid GCDS and IdP will auth users and allow Google access
-* works with OIDC or SAML2 like Azure AD, ADFS or Okta
-
-
-* Configuring Access Context Manager
-
-* Security Health Analytics - works through Sec Command Center
+* Web Security Scanner - to scan CVE and XSS etc
+* Event Threat Detection - scan logs to check for compromise
+* Security Health Analytics - common mis-config, like public buckets, CIS viols etc
+* Container Threat Detection - potential compromise on containers
+* SSL Policy `COMPATIBLE` - Allows the broadest set of clients, including clients that support only **out-of-date SSL** features, to negotiate SSL with the load balancer (this is default policy as well)
+* cloud armor policy attached to backend service
 

@@ -83,6 +83,7 @@
   * set min TLS version
   * MODERN or RESTRICTED profile selection
   * disable some features
+  * SSL Policy `COMPATIBLE` - Allows the broadest set of clients, including clients that support only **out-of-date SSL** features, to negotiate SSL with the load balancer (this is default policy as well)
 
 * Application Load Balancer
   * forwarding rule

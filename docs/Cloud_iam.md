@@ -99,6 +99,22 @@
 
 ## Basic Concepts
 
+
+
+
+### Configuring Workforce Identity Federation
+
+* Workforce is group of users
+* this is used to avoid GCDS and IdP will auth users and allow Google access
+* works with OIDC or SAML2 like Azure AD, ADFS or Okta
+
+
+* Configuring Access Context Manager
+
+* Security Health Analytics - works through Sec Command Center
+
+
+
 ### Workload Identity
 
 * Google Cloud provides service accounts to act as identities for workloads

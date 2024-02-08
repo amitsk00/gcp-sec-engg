@@ -67,6 +67,7 @@ top of Google Cloud
   * Establish Organization-level policies
   * Enforce separation of duties through Shared VPC
   * Harden your cluster's security
+  * Have File Integrity and Virus Scanning enabled
 
 ## HIPAA - Health Insurance Portability and Accountability Act
 

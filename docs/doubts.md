@@ -34,7 +34,9 @@
 ## exam basis
 
 
-* SSL Policy - RESTRICTED
-* VPC Flow logs enabled at ??
-* Org policy - override at project level
 
+
+
+* Private Service Connect
+* egress and ingress FW rules
+* 
