@@ -77,7 +77,7 @@ top of Google Cloud
 * complying with HIPAA is a shared responsibility between the customer and Google
 * Following annual audits are done:
   * SSAE 16 / ISAE 3402 Type II
-  * ISO 27001
+  * ISO 27001 - Requirements for an information security management system (ISMS), specifies a set of best practices
   * ISO 27017 - Cloud Security
   * ISO 20718 - Cloud Privacy (PII related)
   * FedRAMP ATO

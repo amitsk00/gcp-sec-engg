@@ -1,6 +1,5 @@
 # Security
 
-
 ## Deploying Secure Web Proxy
 
 * helps you secure egress web traffic (HTTP/S)
@@ -11,10 +10,8 @@
   * Target ID using URLs, hostnames
   * Request based on methods, headers or URLs
   
-  
-## Access Context Manager
+## Access Context Manager [here](https://cloud.google.com/access-context-manager/docs/access-control)
 
-<https://cloud.google.com/access-context-manager/docs/access-control>
 <https://cloud.google.com/sdk/gcloud/reference/access-context-manager/perimeters/update>
 
 * User + Device + Context is the new security perimeter
@@ -72,8 +69,6 @@
 * Help lower your total cost of ownership and simplify licensing with pay-as-you-go pricing and zero capital expenditures
 * protect keys in HSM
 * Audit logs
-
-
 
 ## Signed URL / Policy for GCS
 
@@ -197,7 +192,7 @@ gcloud access-context-manager policies create \
 
 * these types can be of INCLUDE or EXCLUDE category
   * Exclude can be used to reduce the outcome
-    Hotword - can be used to increase the likelihood
+  * Hotword - can be used to increase the likelihood
 * These can be RegEx , digits with precision, math checksum or prefixes
 * `Likelihood` is returns by API to confirm the same as name suggests
 
@@ -230,8 +225,10 @@ gcloud access-context-manager policies create \
 * Redaction: Deletes all or part of a detected sensitive value.
 * Replacement: Replaces a detected sensitive value with a specified surrogate value.
 * Masking: Replaces a number of characters of a sensitive value with a specified surrogate character, such as a hash (#) or asterisk (*).
-* Crypto-based tokenization: Encrypts the original sensitive data value using a cryptographic key. Sensitive Data Protection supports several types of tokenization, including transformations that can be reversed, or "re-identified."
-* Bucketing: "Generalizes" a sensitive value by replacing it with a range of values. (For example, replacing a specific age with an age range, or temperatures with ranges corresponding to "Hot," "Medium," and "Cold.")
+* Crypto-based tokenization: Encrypts the original sensitive data value using a cryptographic key. 
+  * Sensitive Data Protection supports several types of tokenization, including transformations that can be reversed, or "re-identified."
+* Bucketing: "Generalizes" a sensitive value by replacing it with a range of values. 
+  * For example, replacing a specific age with an age range, or temperatures with ranges corresponding to "Hot," "Medium," and "Cold."
 * Date shifting: Shifts sensitive date values by a random amount of time.
 * Time extraction: Extracts or preserves specified portions of date and time values.
 
@@ -260,17 +257,23 @@ gcloud access-context-manager policies create \
 * Signed headers provide secondary security in case someone bypasses IAP
   * it strips the x-goog-* headers provided by the client
   * JWT is in the HTTP request header x-goog-iap-jwt-assertion
-    * JWT header Algorithm	ES256
-
+    * JWT header Algorithm ES256
 
 ### Cloud Asset Inventory
+
+* earlier this was done using Forseti - Inventory, Identify, Report, Enforcer
+* Now this is part of IAM
+* An `asset snapshot` is the set of available assets under a Resource Manager project, folder, or organization at a specific timestamp.
+* keeps 35 days of history of metadata
+  * if no changes to the data, latest entry is always maintained
+  * data can be exported to BQ or GCS for analysis on timely basis
 
 ### Web Security Scanner
 
 * Identify security vuln in web apps like GAE, Run, GKE or VM based web apps
 * currently supports *only public URLs and IPs* that are **not** behind firewall
 * it crawls all links from the starting URL specified with all inputs and event handlers
-  * sends GET only requests
+  * sends GET  requests only
 * Caution:
   * cant detect all vuln
   * not suitable to be used in Prod env - can adversely affect reliability of the app

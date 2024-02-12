@@ -7,25 +7,28 @@
   * GPA for APIs
   * NAT for internet
   * Control Plane gets addtional Private Endpoint (no public IP)
-
 * Authorized Networks
   * restrict access to Untrusted Actor the control plane to trusted CIDR ranges
   * Mandatory for private clusters
-
 * Shilded Nodes
   * by default
-
 * GKE Secrets
   * KMS to manage GKE KEK
-
 * Bin Authorization
-
 * Workload Identoty
-
 * GKE Sandbox
+
+
 
 * Tips
   * Compute Default SA has editor role so better use custom SA for cluster
+* Properly handle PID 1, signal handling, and zombie processes [ [here](https://cloud.google.com/architecture/best-practices-for-building-containers?hl=en#signal-handling)]
+  * launch your process with the `CMD` and/or `ENTRYPOINT`
+* To protect your apps from attackers, try to **reduce the attack surface** of your app by removing any unnecessary tools
+* Avoid running as root inside the container
+* Launch the container in read-only mode - `readOnlyRootFilesystem`
+* don't patch Containers in place for vulnerabilities - best practice is to rebuild the image, patches included, and redeploy it
+
 
 ## RBAC
 
@@ -35,7 +38,7 @@
 * Have users and pods only see resources in their authorized namespace. This allows you to isolate resources
 * within your organization (for example, between development teams).
 
-!!! Note  ""
+!!! Note  
 
     IAM gives access at project level. RBAC can be used to give access at Cluster or Namespace level
 
@@ -48,7 +51,7 @@
   * Private cluster: 100 IP address ranges
   * PSC-based clusters: 100 IP address ranges
 
-``` cli
+```cli
 gcloud container clusters create-auto CLUSTER_NAME \
     --enable-master-authorized-networks \
     --master-authorized-networks CIDR1,CIDR2,... \

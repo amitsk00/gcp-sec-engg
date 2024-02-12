@@ -27,20 +27,16 @@
 
 ### Configuring workload identity federation
 
-* Workload Identity Federation = when some services of yours deployed outside of GCP (in on-premises or other hyperscalers) need to access GCP resources / APIs.
+* Workload Identity Federation - when some services of yours deployed outside of GCP (in on-premises or other hyperscalers) need to access GCP resources / APIs.
 * Can be used with AWS or any that supports OIDC - like SAML2.0, MS AD
 * federation is better/safer than using SA as keys can be a risk
 * Workload Identity Pool is used for this
 
 * AD
-  * exchange their Active Directory Kerberos credentials for short-lived Google Cloud credentials. 
+  * exchange their Active Directory Kerberos credentials for short-lived Google Cloud credentials.
   * Workloads can use these short-lived credentials to access Google Cloud APIs
     * Workload uses OIDC to get token or SAML Assertion
     * Workload then use Workload Identity Federation to exchange OIDC token or SAML Assertion against Security Token Service token
-
-
-
-
 
 ## Managing authentication. Considerations include
 
@@ -99,29 +95,23 @@
 
 ## Basic Concepts
 
-
-
-
 ### Configuring Workforce Identity Federation
 
 * Workforce is group of users
 * this is used to avoid GCDS and IdP will auth users and allow Google access
 * works with OIDC or SAML2 like Azure AD, ADFS or Okta
 
-
 * Configuring Access Context Manager
 
 * Security Health Analytics - works through Sec Command Center
-
-
 
 ### Workload Identity
 
 * Google Cloud provides service accounts to act as identities for workloads
 
-1. Attached servcie accounts - using this workload can access GCP services
-2. short lived token/creds - OAuth2 or OIDC token for SA
-3. GKE Workload Identity - GKE SA can act as IAM SA adn access GCP servcies
+  1. Attached servcie accounts - using this workload can access GCP services
+  2. short lived token/creds - OAuth2 or OIDC token for SA
+  3. GKE Workload Identity - GKE SA can act as IAM SA and access GCP servcies
 
 * Workload identity federation: Use credentials from external identity providers to generate short-lived credentials, which workloads can use to temporarily impersonate service accounts. Workloads can then access Google Cloud resources, using the service account as their identity.
 * Service account keys: Use the private portion of a service account's public/private RSA key pair to authenticate as the service account.
@@ -143,7 +133,7 @@
     * using existing external ID and creds, using IdP
     * setting up SSO using SAML
     * this needs a user in GCP IAM which is identified by external users mail ID
-    * GCP account : SAMP IdP :: 1:1
+    * GCP account : SAML IdP :: 1:1
     * Commonly used external IdPs include Active Directory Federation Services (AD FS), Azure AD, Okta, or Ping Identity
   * External authoritative source
   * External user account
@@ -152,7 +142,6 @@
 * Federated user identities - use external creds to federate on GCP
 * Federation using Cloud Identity or Google Workspace - external ID uses External ID Provider (IdP) to access GCP. GCP also has ID for the same user - pref with same mail ID. GCDS or AD can be used to synch up IDs
 * Workforce identity federation - can use IdP to auth group of users, **no need** to synch/GCDS
-
 
 ## IdP
 
@@ -185,7 +174,6 @@
     1. if access is given (present in Allow policy), access is granted
     2. else (missing in Allow policy), access is denied
 
-
 ## GCDS
 
 * Roles needed to start with
@@ -210,28 +198,28 @@
   * create new use to access Azure AD and add in this new OU
   * new user must be super-admin so that all user management is possible
 
-* In Azure portal, create new App as Google Cloud
-  * In Attributes, map UPN Source as `mail`
-  * From User Settings, all or some groups can be setup
+  * In Azure portal, create new App as Google Cloud
+    * In Attributes, map UPN Source as `mail`
+    * From User Settings, all or some groups can be setup
 
-* Then, Azure AD SSO is needed for auth
-* Configure `SAML` for this  
-  * Uisng Manage > SSO > SAML
-  * provide reply and sign-on URL paths
-  * Download SAML Signing Cert
-  * For `Uniq User ID` use source as Mail
-* COnfigure Google WOrkspace for SSO
-  * Open `Admin Console` and login as super-admin
-  * Security > Auth > SSO with 3rd party IdP
-  * Add URL for Sign-on, Sign-out and change=password (as setup previously on Azure AD)
-  * For Verification Cert, upload prev downloaded cert (from Azure AD)
+    * Then, Azure AD SSO is needed for auth
+    * Configure `SAML` for this  
+      * Uisng Manage > SSO > SAML
+      * provide reply and sign-on URL paths
+      * Download SAML Signing Cert
+      * For `Uniq User ID` use source as Mail
+    * COnfigure Google WOrkspace for SSO
+      * Open `Admin Console` and login as super-admin
+      * Security > Auth > SSO with 3rd party IdP
+      * Add URL for Sign-on, Sign-out and change=password (as setup previously on Azure AD)
+      * For Verification Cert, upload prev downloaded cert (from Azure AD)
 
-* Main GCDS tasks:
-  * It reads for LDAP, and using `Directory API` laods into Cloud Identity
-  * for on-prem AD, its best to run GCDS on-prem
-  * This process has sensitive info (and hence should remain within local network)
-  * LDAPS (LDAP + SSL) or Cloud VPN can be used to encrypt the data
-  * There needs a user on GCP side, with super-admin privs
+  * Main GCDS tasks:
+    * It reads for LDAP, and using `Directory API` laods into Cloud Identity
+    * for on-prem AD, its best to run GCDS on-prem
+    * This process has sensitive info (and hence should remain within local network)
+    * LDAPS (LDAP + SSL) or Cloud VPN can be used to encrypt the data
+    * There needs a user on GCP side, with super-admin privs
   
 ### Configuring Google Cloud Directory Sync and third-party connectors
 
@@ -252,10 +240,10 @@
 * You set up rules to specify how the system generates a list of your data.
 * During a sync, the list is exported from your LDAP server.
 * GCDS connects to your Google Account and generates a list of users, groups, and shared contacts that you specify.
+* LDAPS or VPN should be used for connection to make it secure
 * GCDS compares these lists and updates your Google Account to match the data.
 * After the synchronization, you get an email report so that you can monitor the process.
 
 ### Managing a super administrator account
 
 [here](https://cloud.google.com/resource-manager/docs/super-admin-best-practices)
-

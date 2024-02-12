@@ -34,7 +34,10 @@
   * can't be tracked / audited
   * no expiration date and hence pose a risk
 
-??? note
+* Crypto mining alert - **Security Command Center** can use *Event Threat Detection* and * VM Threat Detection* for this
+
+
+!!! Info
 
     Ditch the keys and use Workload Identity & Workload Identity Federation!
 
@@ -209,3 +212,14 @@ The security points are as follows:
 * SSL Policy `COMPATIBLE` - Allows the broadest set of clients, including clients that support only **out-of-date SSL** features, to negotiate SSL with the load balancer (this is default policy as well)
 * cloud armor policy attached to backend service
 
+* PCI DSS prefers IaaS as network can be managed by own
+* `Transfer Tool for Unused Users TTUU` can be used if any unused users found at sync (IdP to Cloud Identity)
+* The `Policy Analyzer` can be used to help your enterprise verify that users have the appropriate access rights
+* GCP MFA - cryptographic signature to authenticate a user - Security Keys provide this
+* SA can be undeleted, if deleted by mistake, within 30 days - before it's permanenetly deleted.
+  * Bindings for this SA remain for 60 days, but with a prefix of `deleted:`
+* Admin Activity audit logs are not generated if/when ACLs are initially set at object creation. Additionally, if an object ACL is set to public, audit logs are not generated for reads or writes to that object or its ACL
+
+
+  
+  
